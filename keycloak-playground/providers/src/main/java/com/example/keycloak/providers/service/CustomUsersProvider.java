@@ -1,7 +1,7 @@
 package com.example.keycloak.providers.service;
 
-import com.example.keycloak.providers.rest.model.PutRequiredActionsRequest;
-import com.example.keycloak.providers.rest.model.PutRequiredActionsRequest.Mode;
+import com.example.keycloak.providers.resource.model.PutRequiredActionsRequest;
+import com.example.keycloak.providers.resource.model.PutRequiredActionsRequest.Mode;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import lombok.Data;

@@ -1,4 +1,4 @@
-package com.example.keycloak.providers.rest.model;
+package com.example.keycloak.providers.resource.model;
 
 import java.util.List;
 import lombok.AllArgsConstructor;

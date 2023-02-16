@@ -1,12 +1,11 @@
-package com.example.keycloak.providers.rest;
+package com.example.keycloak.providers.resource;
 
-import com.example.keycloak.providers.rest.model.PutRequiredActionsRequest;
+import com.example.keycloak.providers.resource.model.PutRequiredActionsRequest;
 import com.example.keycloak.providers.service.CustomUsersProvider;
 import java.time.OffsetDateTime;
 import java.util.Map;
 import java.util.stream.Stream;
 import javax.ws.rs.GET;
-import javax.ws.rs.NotAuthorizedException;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -21,28 +20,20 @@ import lombok.extern.jbosslog.JBossLog;
 import org.jboss.resteasy.spi.HttpRequest;
 import org.jboss.resteasy.spi.ResteasyProviderFactory;
 import org.keycloak.common.ClientConnection;
-import org.keycloak.jose.jws.JWSInput;
-import org.keycloak.jose.jws.JWSInputException;
 import org.keycloak.models.KeycloakSession;
 import org.keycloak.models.RealmModel;
 import org.keycloak.models.UserModel;
-import org.keycloak.representations.AccessToken;
 import org.keycloak.representations.account.UserRepresentation;
-import org.keycloak.services.managers.AppAuthManager;
-import org.keycloak.services.managers.AuthenticationManager;
-import org.keycloak.services.managers.RealmManager;
 import org.keycloak.services.resource.RealmResourceProvider;
-import org.keycloak.services.resources.admin.AdminAuth;
-import org.keycloak.services.resources.admin.permissions.AdminPermissionEvaluator;
-import org.keycloak.services.resources.admin.permissions.AdminPermissions;
 
 @RequiredArgsConstructor
 @Data
 @JBossLog
-public class UserResourceProvider implements RealmResourceProvider {
+public class UsersResourceProvider implements RealmResourceProvider {
 
   private final KeycloakSession session;
   private final CustomUsersProvider customUsersProvider;
+  private final AdminAuthService adminAuthService;
 
   @Context
   protected ClientConnection clientConnection;
@@ -63,9 +54,9 @@ public class UserResourceProvider implements RealmResourceProvider {
   }
 
   /**
-   * @see org.keycloak.models.UserProvider#getUsersStream(RealmModel)
-   * @see org.keycloak.models.UserProvider#getUsersStream(RealmModel, boolean)
-   * @see org.keycloak.models.UserProvider#getUsersStream(RealmModel, Integer, Integer, boolean)
+   * @see org.keycloak.models.UserProvider#searchForUserStream(RealmModel, Map)
+   * @see org.keycloak.models.UserProvider#searchForUserStream(RealmModel, Map, Integer, Integer)
+   * @see org.keycloak.models.UserProvider#searchForUserStream(RealmModel, String, Integer, Integer)
    */
   @GET
   @Produces(MediaType.APPLICATION_JSON)
@@ -87,7 +78,7 @@ public class UserResourceProvider implements RealmResourceProvider {
   @Path("/{id}/touch")
   @Produces(MediaType.APPLICATION_JSON)
   public Response touchUser(@PathParam("realm") String realmValue, @PathParam("id") String id) {
-    authenticateRealmAdmin().users().requireManage();
+    adminAuthService.adminPermissionEvaluator().users().requireManage();
 
     var realm = session.getContext().getRealm();
     var user = session.users().getUserById(realm, id);
@@ -102,7 +93,7 @@ public class UserResourceProvider implements RealmResourceProvider {
       @PathParam("id") String id, PutRequiredActionsRequest request) {
     var realm = session.getContext().getRealm();
     var user = session.users().getUserById(realm, id);
-    authenticateRealmAdmin().users().requireManage(user);
+    adminAuthService.adminPermissionEvaluator().users().requireManage(user);
 
     request.setRealm(realmValue);
     customUsersProvider.updateUserRequiredActions(user, realm, request);
@@ -115,59 +106,12 @@ public class UserResourceProvider implements RealmResourceProvider {
   @Produces(MediaType.APPLICATION_JSON)
   public Response updateRequiredActions(@PathParam("realm") String realmValue,
       PutRequiredActionsRequest request) {
-    authenticateRealmAdmin().users().requireManage();
+    adminAuthService.adminPermissionEvaluator().users().requireManage();
 
     request.setRealm(realmValue);
     customUsersProvider.updateRequiredActions(request);
 
     return Response.noContent().build();
-  }
-
-  private AdminPermissionEvaluator authenticateRealmAdmin() {
-    var adminAuth = authenticateRealmAdminRequest(httpHeaders);
-    return AdminPermissions.evaluator(
-        session,
-        session.getContext().getRealm(),
-        adminAuth);
-  }
-
-  /**
-   * @see org.keycloak.services.resources.admin.AdminRoot#authenticateRealmAdminRequest(HttpHeaders)
-   */
-  protected AdminAuth authenticateRealmAdminRequest(HttpHeaders headers) {
-    String tokenString = AppAuthManager.extractAuthorizationHeaderToken(headers);
-    if (tokenString == null) {
-      throw new NotAuthorizedException("Bearer");
-    }
-    AccessToken token;
-    try {
-      JWSInput input = new JWSInput(tokenString);
-      token = input.readJsonContent(AccessToken.class);
-    } catch (JWSInputException e) {
-      throw new NotAuthorizedException("Bearer token format error");
-    }
-    String realmName = token.getIssuer().substring(token.getIssuer().lastIndexOf('/') + 1);
-    RealmManager realmManager = new RealmManager(session);
-    RealmModel realm = realmManager.getRealmByName(realmName);
-    if (realm == null) {
-      throw new NotAuthorizedException("Unknown realm in token");
-    }
-    session.getContext().setRealm(realm);
-
-    AuthenticationManager.AuthResult authResult = new AppAuthManager.BearerTokenAuthenticator(
-        session)
-        .setRealm(realm)
-        .setConnection(clientConnection)
-        .setHeaders(headers)
-        .authenticate();
-
-    if (authResult == null) {
-      log.debug("Token not valid");
-      throw new NotAuthorizedException("Bearer");
-    }
-
-    return new AdminAuth(realm, authResult.getToken(), authResult.getUser(),
-        authResult.getClient());
   }
 
 }

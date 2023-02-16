@@ -1,3 +1,4 @@
-com.example.keycloak.providers.rest.GreetingResourceProviderFactory
-com.example.keycloak.providers.rest.UserResourceProviderFactory
-com.example.keycloak.providers.rest.ConfigPropsResourceProviderFactory
+com.example.keycloak.providers.resource.GreetingResourceProviderFactory
+com.example.keycloak.providers.resource.UsersResourceProviderFactory
+com.example.keycloak.providers.resource.CustomUsersRootResourceProviderFactory
+com.example.keycloak.providers.resource.ConfigPropsResourceProviderFactory

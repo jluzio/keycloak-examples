@@ -1,4 +1,4 @@
-package com.example.keycloak.providers.rest;
+package com.example.keycloak.providers.resource;
 
 import lombok.RequiredArgsConstructor;
 import org.keycloak.Config.Scope;

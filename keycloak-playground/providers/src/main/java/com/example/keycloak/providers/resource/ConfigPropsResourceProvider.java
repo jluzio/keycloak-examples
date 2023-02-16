@@ -1,4 +1,4 @@
-package com.example.keycloak.providers.rest;
+package com.example.keycloak.providers.resource;
 
 import java.util.Map;
 import javax.ws.rs.GET;

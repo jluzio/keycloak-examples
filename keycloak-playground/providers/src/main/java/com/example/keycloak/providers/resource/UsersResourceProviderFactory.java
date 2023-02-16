@@ -1,4 +1,4 @@
-package com.example.keycloak.providers.rest;
+package com.example.keycloak.providers.resource;
 
 import com.example.keycloak.providers.service.CustomUsersProvider;
 import lombok.RequiredArgsConstructor;
@@ -9,7 +9,7 @@ import org.keycloak.services.resource.RealmResourceProvider;
 import org.keycloak.services.resource.RealmResourceProviderFactory;
 
 @RequiredArgsConstructor
-public class UserResourceProviderFactory implements RealmResourceProviderFactory {
+public class UsersResourceProviderFactory implements RealmResourceProviderFactory {
 
   public static final String ID = "users";
 
@@ -21,7 +21,8 @@ public class UserResourceProviderFactory implements RealmResourceProviderFactory
   @Override
   public RealmResourceProvider create(KeycloakSession session) {
     var customUsersProvider = new CustomUsersProvider(session);
-    return new UserResourceProvider(session, customUsersProvider);
+    var adminAuthService = new AdminAuthService(session);
+    return new UsersResourceProvider(session, customUsersProvider, adminAuthService);
   }
 
   @Override

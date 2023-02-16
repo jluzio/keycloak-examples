@@ -1,4 +1,4 @@
-package com.example.keycloak.providers.rest;
+package com.example.keycloak.providers.resource;
 
 import com.example.keycloak.providers.config.ConfigProviders;
 import java.util.HashMap;
