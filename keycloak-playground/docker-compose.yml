@@ -20,6 +20,7 @@ services:
   keycloak:
     image: quay.io/keycloak/keycloak:latest
 #    image: quay.io/keycloak/keycloak:9.0.3
+    pull_policy: always
     container_name: keycloak
     command:
       - start-dev

@@ -1,5 +1,6 @@
 package com.example.keycloak.providers.rest;
 
+import com.example.keycloak.providers.service.CustomUsersProvider;
 import lombok.RequiredArgsConstructor;
 import org.keycloak.Config.Scope;
 import org.keycloak.models.KeycloakSession;
@@ -19,7 +20,8 @@ public class UserResourceProviderFactory implements RealmResourceProviderFactory
 
   @Override
   public RealmResourceProvider create(KeycloakSession session) {
-    return new UserResourceProvider(session);
+    var customUsersProvider = new CustomUsersProvider(session);
+    return new UserResourceProvider(session, customUsersProvider);
   }
 
   @Override

@@ -3,6 +3,7 @@ package com.example.keycloak.providers.rest;
 import com.example.keycloak.providers.rest.model.PutRequiredActionsRequest;
 import com.example.keycloak.providers.service.CustomUsersProvider;
 import java.time.OffsetDateTime;
+import java.util.Map;
 import java.util.stream.Stream;
 import javax.ws.rs.GET;
 import javax.ws.rs.NotAuthorizedException;
@@ -24,6 +25,7 @@ import org.keycloak.jose.jws.JWSInput;
 import org.keycloak.jose.jws.JWSInputException;
 import org.keycloak.models.KeycloakSession;
 import org.keycloak.models.RealmModel;
+import org.keycloak.models.UserModel;
 import org.keycloak.representations.AccessToken;
 import org.keycloak.representations.account.UserRepresentation;
 import org.keycloak.services.managers.AppAuthManager;
@@ -70,7 +72,9 @@ public class UserResourceProvider implements RealmResourceProvider {
   public Stream<UserRepresentation> getUsers(@PathParam("realm") String realmValue) {
     var realm = session.getContext().getRealm();
     return session.users()
-        .getUsersStream(realm, false)
+        .searchForUserStream(realm, Map.of(
+            UserModel.INCLUDE_SERVICE_ACCOUNT, Boolean.FALSE.toString()
+        ))
         .map(user -> {
           var representation = new UserRepresentation();
           representation.setId(user.getId());
