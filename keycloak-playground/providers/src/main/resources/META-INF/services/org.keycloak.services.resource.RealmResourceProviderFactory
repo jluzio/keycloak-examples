@@ -2,3 +2,4 @@ com.example.keycloak.providers.resource.GreetingResourceProviderFactory
 com.example.keycloak.providers.resource.UsersResourceProviderFactory
 com.example.keycloak.providers.resource.CustomUsersRootResourceProviderFactory
 com.example.keycloak.providers.resource.ConfigPropsResourceProviderFactory
+com.example.keycloak.providers.resource.ExceptionHandlingResourceProviderFactory
