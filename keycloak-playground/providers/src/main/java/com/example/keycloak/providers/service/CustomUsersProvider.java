@@ -2,7 +2,6 @@ package com.example.keycloak.providers.service;
 
 import com.example.keycloak.providers.resource.model.PutRequiredActionsRequest;
 import com.example.keycloak.providers.resource.model.PutRequiredActionsRequest.Mode;
-import java.util.Optional;
 import java.util.stream.Collectors;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -10,7 +9,7 @@ import lombok.extern.jbosslog.JBossLog;
 import org.keycloak.models.KeycloakSession;
 import org.keycloak.models.RealmModel;
 import org.keycloak.models.UserModel;
-import org.keycloak.models.cache.UserCache;
+//import org.keycloak.models.cache.UserCache;
 
 @RequiredArgsConstructor
 @Data
@@ -46,19 +45,20 @@ public class CustomUsersProvider {
       currentActions.forEach(user::removeRequiredAction);
       request.getActions().forEach(user::addRequiredAction);
     }
-    if (request.isCacheEvict()) {
-      evictUserFromCacheIfPossible(user, realm);
-    }
+    // requires org.keycloak:keycloak-model-infinispan
+//    if (request.isCacheEvict()) {
+//      evictUserFromCacheIfPossible(user, realm);
+//    }
   }
 
-  private Optional<UserCache> userCache() {
-    return Optional.of(session.users())
-        .filter(UserCache.class::isInstance)
-        .map(UserCache.class::cast);
-  }
-
-  private void evictUserFromCacheIfPossible(UserModel user, RealmModel realm) {
-    userCache().ifPresent(cache -> cache.evict(realm, user));
-  }
+//  private Optional<UserCache> userCache() {
+//    return Optional.of(session.users())
+//        .filter(UserCache.class::isInstance)
+//        .map(UserCache.class::cast);
+//  }
+//
+//  private void evictUserFromCacheIfPossible(UserModel user, RealmModel realm) {
+//    userCache().ifPresent(cache -> cache.evict(realm, user));
+//  }
 
 }

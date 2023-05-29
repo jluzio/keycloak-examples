@@ -15,7 +15,7 @@ class KeycloakExampleIT {
   private KeycloakContainer container = new KeycloakContainer("quay.io/keycloak/keycloak:21.1")
       .withRealmImportFile("/keycloak/app-realm-export.json");
 
-//  @Test
+  @Test
   void test() {
     // TODO: fix test, currently does not work
     Keycloak keycloakAdmin = container.getKeycloakAdminClient();
