@@ -6,7 +6,8 @@ volumes:
 
 services:
   mysql:
-    image: mysql:5.7
+    image: mysql:8
+#    image: mysql:5.7
     container_name: mysql
     ports:
       - 3306:3306
@@ -18,8 +19,8 @@ services:
       MYSQL_USER: keycloak
       MYSQL_PASSWORD: password
   keycloak:
-    image: quay.io/keycloak/keycloak:latest
-#    image: quay.io/keycloak/keycloak:9.0.3
+    image: quay.io/keycloak/keycloak:21.1
+#    image: quay.io/keycloak/keycloak:latest
     pull_policy: always
     container_name: keycloak
     command:
