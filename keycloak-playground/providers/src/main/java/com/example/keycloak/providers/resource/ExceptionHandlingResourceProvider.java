@@ -4,11 +4,11 @@ import static java.util.Optional.ofNullable;
 
 import java.lang.reflect.Constructor;
 import java.util.Optional;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
-import javax.ws.rs.core.MediaType;
+import jakarta.ws.rs.GET;
+import jakarta.ws.rs.Path;
+import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.QueryParam;
+import jakarta.ws.rs.core.MediaType;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.jbosslog.JBossLog;
 import org.keycloak.models.KeycloakSession;
@@ -43,35 +43,35 @@ public class ExceptionHandlingResourceProvider implements RealmResourceProvider 
   @Path("/400")
   @Produces(MediaType.APPLICATION_JSON)
   public String throwBadRequestException() {
-    throw new javax.ws.rs.BadRequestException("Some exception");
+    throw new jakarta.ws.rs.BadRequestException("Some exception");
   }
 
   @GET
   @Path("/401")
   @Produces(MediaType.APPLICATION_JSON)
   public String throwNotAuthorizedException() {
-    throw new javax.ws.rs.NotAuthorizedException("Some exception");
+    throw new jakarta.ws.rs.NotAuthorizedException("Some exception");
   }
 
   @GET
   @Path("/403")
   @Produces(MediaType.APPLICATION_JSON)
   public String throwForbiddenException() {
-    throw new javax.ws.rs.ForbiddenException("Some exception");
+    throw new jakarta.ws.rs.ForbiddenException("Some exception");
   }
 
   @GET
   @Path("/404")
   @Produces(MediaType.APPLICATION_JSON)
   public String throwNotFoundException() {
-    throw new javax.ws.rs.NotFoundException("Some exception");
+    throw new jakarta.ws.rs.NotFoundException("Some exception");
   }
 
   @GET
   @Path("/500")
   @Produces(MediaType.APPLICATION_JSON)
   public String throwInternalServerErrorException() {
-    throw new javax.ws.rs.InternalServerErrorException("Some exception");
+    throw new jakarta.ws.rs.InternalServerErrorException("Some exception");
   }
 
   @Override

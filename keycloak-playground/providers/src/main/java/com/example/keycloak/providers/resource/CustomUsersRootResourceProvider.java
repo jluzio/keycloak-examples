@@ -1,10 +1,10 @@
 package com.example.keycloak.providers.resource;
 
 import com.example.keycloak.providers.service.CustomUsersProvider;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.core.Context;
-import javax.ws.rs.core.HttpHeaders;
+import jakarta.ws.rs.Path;
+import jakarta.ws.rs.PathParam;
+import jakarta.ws.rs.core.Context;
+import jakarta.ws.rs.core.HttpHeaders;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.jbosslog.JBossLog;

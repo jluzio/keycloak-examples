@@ -2,6 +2,7 @@ package com.example.keycloak.providers.service;
 
 import com.example.keycloak.providers.resource.model.PutRequiredActionsRequest;
 import com.example.keycloak.providers.resource.model.PutRequiredActionsRequest.Mode;
+import java.util.Map;
 import java.util.stream.Collectors;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -22,13 +23,15 @@ public class CustomUsersProvider {
   public void updateRequiredActions(PutRequiredActionsRequest request) {
     var realm = session.realms().getRealm(request.getRealm());
     var pageSize = request.getPageSize();
+    var params = Map.of(
+        UserModel.INCLUDE_SERVICE_ACCOUNT, Boolean.FALSE.toString());
     if (pageSize == null) {
-      session.users().getUsersStream(realm, false)
+      session.users().searchForUserStream(realm, params)
           .forEach(user -> updateUserRequiredActions(user, realm, request));
     } else {
       var userCount = session.users().getUsersCount(realm, false);
       for (var from = 0; from < userCount; from += pageSize) {
-        session.users().getUsersStream(realm, from, pageSize, false)
+        session.users().searchForUserStream(realm, params, from, pageSize)
             .forEach(user -> updateUserRequiredActions(user, realm, request));
       }
     }

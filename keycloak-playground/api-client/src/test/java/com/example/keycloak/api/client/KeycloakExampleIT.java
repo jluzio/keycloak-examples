@@ -12,12 +12,13 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 class KeycloakExampleIT {
 
   @Container
-  private KeycloakContainer container = new KeycloakContainer("quay.io/keycloak/keycloak:21.1")
+  private KeycloakContainer container = new KeycloakContainer("quay.io/keycloak/keycloak:24.0.2")
       .withRealmImportFile("/keycloak/app-realm-export.json");
 
   @Test
   void test() {
     Keycloak keycloakAdmin = container.getKeycloakAdminClient();
+    log.debug("--- realms ---");
     keycloakAdmin.realms().findAll().forEach(realm -> {
       log.info("realm: {}", realm.getRealm());
     });

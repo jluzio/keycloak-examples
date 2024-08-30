@@ -5,7 +5,7 @@ import static java.util.Optional.ofNullable;
 import com.example.keycloak.providers.config.ConfigProviders;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.List;
-import javax.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.MediaType;
 import lombok.RequiredArgsConstructor;
 import org.apache.http.HttpHeaders;
 import org.apache.http.HttpResponse;

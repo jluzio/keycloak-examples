@@ -1,7 +1,7 @@
 package com.example.keycloak.providers.resource;
 
-import javax.ws.rs.NotAuthorizedException;
-import javax.ws.rs.core.HttpHeaders;
+import jakarta.ws.rs.NotAuthorizedException;
+import jakarta.ws.rs.core.HttpHeaders;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.jbosslog.JBossLog;
