@@ -34,9 +34,7 @@ public class ConfigPropsResourceProviderFactory implements RealmResourceProvider
     var scopedConfig = ConfigProviders.environment().scope("config.props");
     values = new HashMap<>();
     Stream.of("username", "password")
-        .forEach(k -> {
-          values.put(k, scopedConfig.get(k));
-        });
+        .forEach(k -> values.put(k, scopedConfig.get(k)));
     log.debugf("values: %s", values);
     log.debugf("done!");
   }

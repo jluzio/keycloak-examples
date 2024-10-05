@@ -1,4 +1,6 @@
-# https://github.com/keycloak/keycloak-containers/blob/master/docker-compose-examples/keycloak-mysql.yml
+# https://quay.io/repository/keycloak/keycloak
+# https://www.keycloak.org/server/containers
+# https://github.com/keycloak/keycloak/tree/main/quarkus/container
 
 volumes:
   mysql_data:
@@ -19,7 +21,7 @@ services:
       MYSQL_USER: keycloak
       MYSQL_PASSWORD: password
   keycloak:
-    image: quay.io/keycloak/keycloak:21.1
+    image: quay.io/keycloak/keycloak:25.0
 #    image: quay.io/keycloak/keycloak:latest
     pull_policy: always
     container_name: keycloak

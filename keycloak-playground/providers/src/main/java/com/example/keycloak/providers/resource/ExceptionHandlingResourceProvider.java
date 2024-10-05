@@ -2,13 +2,12 @@ package com.example.keycloak.providers.resource;
 
 import static java.util.Optional.ofNullable;
 
-import java.lang.reflect.Constructor;
-import java.util.Optional;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.MediaType;
+import java.lang.reflect.Constructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.jbosslog.JBossLog;
 import org.keycloak.models.KeycloakSession;

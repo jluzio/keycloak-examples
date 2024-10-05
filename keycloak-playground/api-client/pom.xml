@@ -6,7 +6,7 @@
   <parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
-    <version>3.2.4</version>
+    <version>3.3.2</version>
     <relativePath/> <!-- lookup parent from repository -->
   </parent>
 
@@ -17,8 +17,8 @@
   <properties>
     <java.version>21</java.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <org.mapstruct.version>1.5.5.Final</org.mapstruct.version>
-    <lombok.version>1.18.32</lombok.version>
+    <org.mapstruct.version>1.6.2</org.mapstruct.version>
+    <lombok.version>1.18.34</lombok.version>
     <lombok-mapstruct-binding.version>0.2.0</lombok-mapstruct-binding.version>
   </properties>
 
@@ -27,7 +27,7 @@
       <dependency>
         <groupId>org.keycloak</groupId>
         <artifactId>keycloak-parent</artifactId>
-        <version>24.0.2</version>
+        <version>25.0.6</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -54,7 +54,7 @@
     <dependency>
       <groupId>com.google.guava</groupId>
       <artifactId>guava</artifactId>
-      <version>33.0.0-jre</version>
+      <version>33.3.1-jre</version>
     </dependency>
     <dependency>
       <groupId>org.apache.commons</groupId>
@@ -86,12 +86,12 @@
     <dependency>
       <groupId>org.testcontainers</groupId>
       <artifactId>junit-jupiter</artifactId>
-      <version>1.19.7</version>
+      <version>1.20.2</version>
     </dependency>
     <dependency>
       <groupId>com.github.dasniko</groupId>
       <artifactId>testcontainers-keycloak</artifactId>
-      <version>3.3.0</version>
+      <version>3.4.0</version>
       <scope>test</scope>
     </dependency>
 
@@ -129,7 +129,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
-        <version>3.1.0</version>
+        <version>3.5.0</version>
         <configuration>
           <argLine>
             --add-opens java.base/java.lang=ALL-UNNAMED

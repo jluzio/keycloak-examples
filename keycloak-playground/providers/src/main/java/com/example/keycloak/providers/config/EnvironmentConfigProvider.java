@@ -14,6 +14,12 @@ public class EnvironmentConfigProvider implements ConfigProvider {
   }
 
   @Override
+  public String getDefaultProvider(String spi) {
+    // Should be fine, but was unable to confirm the usage
+    return getProvider(spi);
+  }
+
+  @Override
   public Scope scope(String... scope) {
     StringBuilder sb = new StringBuilder();
     sb.append(NS_KEYCLOAK_PREFIX);

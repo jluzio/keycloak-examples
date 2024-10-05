@@ -12,13 +12,13 @@ import java.util.Arrays;
 import java.util.Properties;
 import java.util.function.Function;
 import java.util.stream.Collectors;
-import javax.mail.Address;
-import javax.mail.BodyPart;
-import javax.mail.Message.RecipientType;
-import javax.mail.MessagingException;
-import javax.mail.Multipart;
-import javax.mail.Session;
-import javax.mail.internet.MimeMessage;
+import jakarta.mail.*;
+import jakarta.mail.BodyPart;
+import jakarta.mail.Message.RecipientType;
+import jakarta.mail.MessagingException;
+import jakarta.mail.Multipart;
+import jakarta.mail.Session;
+import jakarta.mail.internet.MimeMessage;
 import jakarta.ws.rs.core.MediaType;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.jbosslog.JBossLog;
@@ -44,7 +44,7 @@ class LogMessageHandler implements MessageHandler {
   }
 
   @Override
-  public void data(InputStream data) throws IOException {
+  public String data(InputStream data) throws IOException {
     try {
       String lineSeparator = System.lineSeparator();
       String separator = "= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =";
@@ -67,6 +67,7 @@ class LogMessageHandler implements MessageHandler {
           toStringAddresses.apply(mimeMessage.getRecipients(RecipientType.TO)),
           emailBody
       );
+      return null;
     } catch (IOException e) {
       throw e;
     } catch (Exception e) {

@@ -3,14 +3,9 @@ package com.example.keycloak.providers.resource;
 import com.example.keycloak.providers.service.CustomUsersProvider;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
-import jakarta.ws.rs.core.Context;
-import jakarta.ws.rs.core.HttpHeaders;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.jbosslog.JBossLog;
-import org.jboss.resteasy.spi.HttpRequest;
-import org.jboss.resteasy.spi.ResteasyProviderFactory;
-import org.keycloak.common.ClientConnection;
 import org.keycloak.models.KeycloakSession;
 import org.keycloak.services.resource.RealmResourceProvider;
 
@@ -23,16 +18,8 @@ public class CustomUsersRootResourceProvider implements RealmResourceProvider {
   private final CustomUsersProvider customUsersProvider;
   private final AdminAuthService adminAuthService;
 
-  @Context
-  protected ClientConnection clientConnection;
-  @Context
-  private HttpHeaders httpHeaders;
-  @Context
-  protected HttpRequest request;
-
   @Override
   public Object getResource() {
-    ResteasyProviderFactory.getInstance().injectProperties(this);
     return this;
   }
 
@@ -45,17 +32,13 @@ public class CustomUsersRootResourceProvider implements RealmResourceProvider {
   public UserResource userResource(@PathParam("id") String id) {
     var realm = session.getContext().getRealm();
     var user = session.users().getUserById(realm, id);
-    var userResource = new UserResource(session, realm, user);
-    ResteasyProviderFactory.getInstance().injectProperties(userResource);
-    return userResource;
+    return new UserResource(session, realm, user);
   }
 
   @Path("")
   public UsersResource usersResource() {
     var realm = session.getContext().getRealm();
-    var usersResource = new UsersResource(session, realm);
-    ResteasyProviderFactory.getInstance().injectProperties(usersResource);
-    return usersResource;
+    return new UsersResource(session, realm);
   }
 
 }

@@ -2,24 +2,19 @@ package com.example.keycloak.providers.resource;
 
 import com.example.keycloak.providers.resource.model.PutRequiredActionsRequest;
 import com.example.keycloak.providers.service.CustomUsersProvider;
-import java.time.OffsetDateTime;
-import java.util.Map;
-import java.util.stream.Stream;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
-import jakarta.ws.rs.core.Context;
-import jakarta.ws.rs.core.HttpHeaders;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import java.time.OffsetDateTime;
+import java.util.Map;
+import java.util.stream.Stream;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.jbosslog.JBossLog;
-import org.jboss.resteasy.spi.HttpRequest;
-import org.jboss.resteasy.spi.ResteasyProviderFactory;
-import org.keycloak.common.ClientConnection;
 import org.keycloak.models.KeycloakSession;
 import org.keycloak.models.RealmModel;
 import org.keycloak.models.UserModel;
@@ -35,16 +30,8 @@ public class UsersResourceProvider implements RealmResourceProvider {
   private final CustomUsersProvider customUsersProvider;
   private final AdminAuthService adminAuthService;
 
-  @Context
-  protected ClientConnection clientConnection;
-  @Context
-  private HttpHeaders httpHeaders;
-  @Context
-  protected HttpRequest request;
-
   @Override
   public Object getResource() {
-    ResteasyProviderFactory.getInstance().injectProperties(this);
     return this;
   }
 

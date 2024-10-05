@@ -1,18 +1,13 @@
 package com.example.keycloak.providers.resource;
 
+import jakarta.ws.rs.GET;
+import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.core.MediaType;
 import java.util.Map;
 import java.util.stream.Stream;
-import jakarta.ws.rs.GET;
-import jakarta.ws.rs.PathParam;
-import jakarta.ws.rs.Produces;
-import jakarta.ws.rs.core.Context;
-import jakarta.ws.rs.core.HttpHeaders;
-import jakarta.ws.rs.core.MediaType;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.jbosslog.JBossLog;
-import org.jboss.resteasy.spi.HttpRequest;
-import org.keycloak.common.ClientConnection;
 import org.keycloak.models.KeycloakSession;
 import org.keycloak.models.RealmModel;
 import org.keycloak.representations.account.UserRepresentation;
@@ -24,11 +19,6 @@ public class UsersResource {
 
   private final KeycloakSession session;
   private final RealmModel realm;
-
-  @Context
-  private HttpHeaders httpHeaders;
-  @Context
-  protected HttpRequest request;
 
   /**
    * @see org.keycloak.models.UserProvider#searchForUserStream(RealmModel, Map)

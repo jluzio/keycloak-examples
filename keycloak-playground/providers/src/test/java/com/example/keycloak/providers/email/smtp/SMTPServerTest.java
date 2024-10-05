@@ -3,23 +3,22 @@ package com.example.keycloak.providers.email.smtp;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.google.common.collect.Maps;
+import jakarta.mail.Message;
+import jakarta.mail.MessagingException;
+import jakarta.mail.Multipart;
+import jakarta.mail.Session;
+import jakarta.mail.Transport;
+import jakarta.mail.internet.InternetAddress;
+import jakarta.mail.internet.MimeBodyPart;
+import jakarta.mail.internet.MimeMessage;
+import jakarta.mail.internet.MimeMultipart;
 import java.io.IOException;
 import java.io.InputStream;
 import java.time.Duration;
 import java.util.Map;
 import java.util.Properties;
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.Multipart;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeBodyPart;
-import javax.mail.internet.MimeMessage;
-import javax.mail.internet.MimeMultipart;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.jbosslog.JBossLog;
-import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.RandomUtils;
 import org.junit.jupiter.api.Test;
 import org.subethamail.smtp.MessageContext;
@@ -37,12 +36,13 @@ import reactor.core.scheduler.Schedulers;
 class SMTPServerTest {
 
   @Test
-  void test() throws MessagingException {
+  void test() {
     Map<String, String> mailsContextData = Maps.newConcurrentMap();
     TestMessageHandlerFactory messageHandlerFactory = new TestMessageHandlerFactory(
         mailsContextData);
-    SMTPServer smtpServer = new SMTPServer(messageHandlerFactory);
-    smtpServer.setPort(2500);
+    SMTPServer smtpServer = SMTPServer.port(2500)
+        .messageHandlerFactory(messageHandlerFactory)
+        .build();
     smtpServer.start();
 
     Properties mailProperties = new Properties();
@@ -122,11 +122,12 @@ class SMTPServerTest {
       }
 
       @Override
-      public void data(InputStream data) throws RejectException, TooMuchDataException, IOException {
+      public String data(InputStream inputStream) throws RejectException, TooMuchDataException, IOException {
         try {
           Session session = Session.getInstance(new Properties());
-          MimeMessage mimeMessage = new MimeMessage(session, data);
+          MimeMessage mimeMessage = new MimeMessage(session, inputStream);
           contextData.put(mimeMessage.getSubject(), mimeMessage.getMessageID());
+          return null;
         } catch (MessagingException e) {
           throw new IOException(e);
         }

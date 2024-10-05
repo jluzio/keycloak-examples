@@ -15,7 +15,7 @@ public class TestApplication {
 //    @ServiceConnection
     @RestartScope
     public KeycloakContainer keycloakContainer() {
-      return new KeycloakContainer("quay.io/keycloak/keycloak:24.0.2")
+      return new KeycloakContainer("quay.io/keycloak/keycloak:25.0")
           .withRealmImportFile("/keycloak/app-realm-export.json")
           .withExposedPorts(8180);
     }
