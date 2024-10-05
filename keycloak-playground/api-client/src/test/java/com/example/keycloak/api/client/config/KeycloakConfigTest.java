@@ -2,6 +2,7 @@ package com.example.keycloak.api.client.config;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import com.example.keycloak.api.client.TestSupport;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.junit.jupiter.api.Test;
@@ -9,9 +10,11 @@ import org.keycloak.admin.client.Keycloak;
 import org.keycloak.admin.client.resource.RealmResource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit.jupiter.EnabledIf;
 
 @SpringBootTest(classes = KeycloakConfig.class)
 @Slf4j
+@EnabledIf(TestSupport.LIVE_TEST)
 class KeycloakConfigTest {
 
   @Autowired
