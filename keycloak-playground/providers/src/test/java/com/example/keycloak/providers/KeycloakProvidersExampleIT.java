@@ -13,7 +13,7 @@ class KeycloakProvidersExampleIT {
 
   @Container
   private KeycloakContainer container = new KeycloakContainer("quay.io/keycloak/keycloak:25.0")
-      .withRealmImportFile("/keycloak/app-realm-export.json");
+      .withRealmImportFile("/keycloak/app-realm-export-base.json");
 
   @Test
   void test() {

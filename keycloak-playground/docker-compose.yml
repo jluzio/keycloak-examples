@@ -61,7 +61,7 @@ services:
       kc.authentication.createTestUser.username: "testuser-dummy"
       kc.authentication.getTestUser.username: "testuser-dummy"
     ports:
-      - 8080:8080
+      - 8180:8080
       - 5005:5005
     volumes:
       - source: ./providers/target/providers-jar-with-dependencies.jar

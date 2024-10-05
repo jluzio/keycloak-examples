@@ -10,7 +10,7 @@ keycloak:
     # - with Client ID manage-users-client
     # - client authentication enabled and client-secret updated with the generated secret
     # - Service accounts role enabled, and assigned 'manage-users'
-    server-url: http://localhost:8080
+    server-url: http://localhost:8180
     realm: app
     client-id: manage-users-client
     client-secret: WaMJOGUZxiWdEXCpMJj5tqP97kDP5Dyg

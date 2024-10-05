@@ -4,6 +4,7 @@ import dasniko.testcontainers.keycloak.KeycloakContainer;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.devtools.restart.RestartScope;
 import org.springframework.boot.test.context.TestConfiguration;
+import org.springframework.boot.testcontainers.service.connection.ServiceConnection;
 import org.springframework.context.annotation.Bean;
 
 public class TestApplication {
@@ -12,12 +13,13 @@ public class TestApplication {
   static class LocalDevTestcontainersConfig {
 
     @Bean
-//    @ServiceConnection
+    @ServiceConnection
     @RestartScope
     public KeycloakContainer keycloakContainer() {
       return new KeycloakContainer("quay.io/keycloak/keycloak:25.0")
-          .withRealmImportFile("/keycloak/app-realm-export.json")
-          .withExposedPorts(8180);
+          .withExposedPorts(8180)
+          .withRealmImportFile("/keycloak/app-realm-export-base.json")
+          ;
     }
   }
 

@@ -45,7 +45,7 @@ public class CreateTestUserByApiAuthenticator implements Authenticator, Authenti
       user.setUsername(username);
       user.setEnabled(true);
 
-      HttpPost request = new HttpPost("http://host.docker.internal:8080/v1/users");
+      HttpPost request = new HttpPost("http://host.docker.internal:8180/v1/users");
       request.setEntity(new StringEntity(objectMapper.writeValueAsString(user)));
       request.addHeader(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON);
       request.addHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON);

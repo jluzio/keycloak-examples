@@ -1,8 +1,9 @@
-package com.example.keycloak.api.client.config;
+package com.example.keycloak.api.client.livetest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.example.keycloak.api.client.TestSupport;
+import com.example.keycloak.api.client.config.KeycloakConfig;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.junit.jupiter.api.Test;
