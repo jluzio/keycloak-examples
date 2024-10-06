@@ -11,7 +11,7 @@
   </parent>
 
   <groupId>com.example.keycloak</groupId>
-  <artifactId>api-client</artifactId>
+  <artifactId>app</artifactId>
   <version>1.0.0</version>
 
   <properties>
@@ -76,6 +76,11 @@
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-devtools</artifactId>
       <scope>runtime</scope>
+      <optional>true</optional>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-configuration-processor</artifactId>
       <optional>true</optional>
     </dependency>
     <dependency>

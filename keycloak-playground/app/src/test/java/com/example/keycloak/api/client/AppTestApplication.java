@@ -7,7 +7,7 @@ import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.testcontainers.service.connection.ServiceConnection;
 import org.springframework.context.annotation.Bean;
 
-public class TestApplication {
+public class AppTestApplication {
 
   @TestConfiguration(proxyBeanMethods = false)
   static class LocalDevTestcontainersConfig {
@@ -24,7 +24,7 @@ public class TestApplication {
   }
 
   public static void main(String[] args) {
-    SpringApplication.from(Application::main)
+    SpringApplication.from(AppApplication::main)
         .with(LocalDevTestcontainersConfig.class)
         .run(args);
   }

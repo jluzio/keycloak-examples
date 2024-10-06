@@ -1,7 +1,12 @@
+server:
+
+
 logging:
   level:
     root: INFO
     com.example.keycloak: DEBUG
+    org.springframework: INFO
+    reactor.netty.http.client: DEBUG
 
 keycloak:
   api:
@@ -18,3 +23,13 @@ keycloak:
 #    client-id: dev-direct-grant-cli
 #    client-secret: 9ee6f35d-c4e5-4c1f-ba48-2b6b4b00e7d1
 #    grant-type: client_credentials
+  oidc:
+    client-id: app-client
+    client-secret: FMw6IdT3jtK65rFAsBVFdQjirvf5WglF
+    endpoints:
+      authorize: http://localhost:8180/realms/app/protocol/openid-connect/auth
+      token: http://localhost:8180/realms/app/protocol/openid-connect/token
+    redirects:
+      default: http://localhost:8080/oidc/callback-log
+      log: http://localhost:8080/oidc/callback-log
+      token: http://localhost:8080/oidc/callback-token

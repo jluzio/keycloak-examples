@@ -7,6 +7,7 @@ import org.keycloak.admin.client.resource.RealmResource;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.reactive.function.client.WebClient;
 
 @Configuration
 @EnableConfigurationProperties(KeycloakApiConfig.class)
@@ -33,6 +34,11 @@ public class KeycloakConfig {
   @Bean
   public RealmResource realmResource(Keycloak keycloak) {
     return keycloak.realm(properties.getRealm());
+  }
+
+  @Bean
+  WebClient keycloakWebClient(WebClient.Builder builder) {
+    return builder.build();
   }
 
 }
