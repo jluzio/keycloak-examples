@@ -9,6 +9,7 @@
   "enabled": true,
   "alwaysDisplayInConsole": false,
   "clientAuthenticatorType": "client-secret",
+  "secret": "FMw6IdT3jtK65rFAsBVFdQjirvf5WglF",
   "redirectUris": [
     "http://localhost:8080/*",
     "http://localhost:8180/*"
@@ -29,14 +30,11 @@
   "protocol": "openid-connect",
   "attributes": {
     "oidc.ciba.grant.enabled": "false",
+    "client.secret.creation.time": "1728245341",
     "backchannel.logout.session.required": "true",
     "display.on.consent.screen": "false",
     "oauth2.device.authorization.grant.enabled": "false",
-    "backchannel.logout.revoke.offline.tokens": "false",
-    "login_theme": "",
-    "consent.screen.text": "",
-    "frontchannel.logout.url": "",
-    "backchannel.logout.url": ""
+    "backchannel.logout.revoke.offline.tokens": "false"
   },
   "authenticationFlowBindingOverrides": {},
   "fullScopeAllowed": true,
@@ -59,6 +57,5 @@
     "view": true,
     "configure": true,
     "manage": true
-  },
-  "authorizationServicesEnabled": false
+  }
 }
